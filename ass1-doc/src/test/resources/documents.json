@@ -1,0 +1,184 @@
+{
+  "documents": [
+    {
+      "location_id": NumberLong(1),
+      "type": "place",
+      "name": "TU Wien",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.3699,
+          48.199
+        ]
+      },
+      "category": "University"
+    },
+    {
+      "location_id": NumberLong(2),
+      "type": "place",
+      "name": "McDonald's",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.368528,
+          48.200939
+        ]
+      },
+      "category": "Restaurant"
+    },
+    {
+      "location_id": NumberLong(3),
+      "type": "place",
+      "name": "McDonald's",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.374138,
+          48.201085
+        ]
+      },
+      "category": "Restaurant"
+    },
+    {
+      "location_id": NumberLong(4),
+      "type": "place",
+      "name": "McDonald's",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.371674,
+          48.205241
+        ]
+      },
+      "category": "Restaurant"
+    },
+    {
+      "location_id": NumberLong(5),
+      "type": "place",
+      "name": "McDonald's",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.380754,
+          48.219325
+        ]
+      },
+      "category": "Restaurant"
+    },
+    {
+      "location_id": NumberLong(6),
+      "type": "address",
+      "name": "Zirkusgasse 1",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.384230,
+          48.216310
+        ]
+      }
+    },
+    {
+      "location_id": NumberLong(7),
+      "type": "address",
+      "name": "Handelskai 9",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.406082,
+          48.225571
+        ]
+      }
+    },
+    {
+      "location_id": NumberLong(8),
+      "type": "place",
+      "name": "Cairngorms National Park",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          -3.562790,
+          57.046944
+        ]
+      },
+      "category": "Park"
+    },
+    {
+      "location_id": NumberLong(9),
+      "type": "place",
+      "name": "Distributed Systems Group",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.371425,
+          48.197742
+        ]
+      },
+      "category": "University"
+    },
+    {
+      "location_id": NumberLong(10),
+      "type": "place",
+      "name": "Computer Vision Lab",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.369572,
+          48.195244
+        ]
+      },
+      "category": "University"
+    },
+    {
+      "location_id": NumberLong(11),
+      "type": "place",
+      "name": "Uni Wien",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.360372,
+          48.213069
+        ]
+      },
+      "category": "University"
+    },
+    {
+      "location_id": NumberLong(12),
+      "type": "place",
+      "name": "BOKU Wien",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.337443,
+          48.236530
+        ]
+      },
+      "category": "University"
+    },
+    {
+      "location_id": NumberLong(13),
+      "type": "place",
+      "name": "WU Wien",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.408456,
+          48.213561
+        ]
+      },
+      "category": "University"
+    },
+    {
+      "location_id": NumberLong(14),
+      "type": "place",
+      "name": "Audimax TU Wien",
+      "geo": {
+        "type": "Point",
+        "coordinates": [
+          16.363949,
+          48.200822
+        ]
+      },
+      "category": "University"
+    }
+  ]
+}
