@@ -17,7 +17,7 @@ public class Organization implements IOrganization {
 
     private String name;
 
-    @ManyToMany(targetEntity = Organization.class)
+    @ManyToMany(targetEntity = Vehicle.class)
     private Collection<IVehicle> vehicles;
 
     @ManyToMany(targetEntity = Organization.class)

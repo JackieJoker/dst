@@ -7,8 +7,11 @@ import dst.ass1.jpa.model.ITrip;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.List;
 
+@Table(
+        uniqueConstraints =
+        @UniqueConstraint(columnNames = {"accountNo", "bankCode"})
+)
 @Entity
 public class Rider implements IRider {
 
@@ -29,48 +32,18 @@ public class Rider implements IRider {
     @OneToOne(optional = false, targetEntity = Preferences.class)
     private IPreferences preferences;
 
+    @NotNull
+    @Column(unique = true)
+    private String email;
 
+    @Column(length = 20)
+    private byte[] password;
 
-    public Rider() {}
+    private String accountNo;
 
-    @Override
-    public String getEmail() {
-        return null;
-    }
+    private String bankCode;
 
-    @Override
-    public void setEmail(String email) {
-
-    }
-
-    @Override
-    public byte[] getPassword() {
-        return new byte[0];
-    }
-
-    @Override
-    public void setPassword(byte[] password) {
-
-    }
-
-    @Override
-    public String getAccountNo() {
-        return null;
-    }
-
-    @Override
-    public void setAccountNo(String accountNo) {
-
-    }
-
-    @Override
-    public String getBankCode() {
-        return null;
-    }
-
-    @Override
-    public void setBankCode(String bankCode) {
-
+    public Rider() {
     }
 
     @Override
@@ -136,5 +109,45 @@ public class Rider implements IRider {
     @Override
     public void setAvgRating(Double avgRating) {
         this.avgRating = avgRating;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public byte[] getPassword() {
+        return password;
+    }
+
+    @Override
+    public void setPassword(byte[] password) {
+        this.password = password;
+    }
+
+    @Override
+    public String getAccountNo() {
+        return accountNo;
+    }
+
+    @Override
+    public void setAccountNo(String accountNo) {
+        this.accountNo = accountNo;
+    }
+
+    @Override
+    public String getBankCode() {
+        return bankCode;
+    }
+
+    @Override
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
     }
 }

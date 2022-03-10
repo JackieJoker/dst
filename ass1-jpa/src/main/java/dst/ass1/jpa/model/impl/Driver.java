@@ -22,7 +22,7 @@ public class Driver implements IDriver {
 
     private Double avgRating;
 
-    @ManyToOne(targetEntity = Vehicle.class)
+    @ManyToOne(targetEntity = Vehicle.class, optional = false)
     private IVehicle vehicle;
 
     @OneToMany(mappedBy = "id.driver", targetEntity = Employment.class)
