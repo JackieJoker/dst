@@ -24,11 +24,10 @@ public class Rider implements IRider {
     private Double avgRating;
 
     @OneToMany(mappedBy = "rider")
-    private List<Trip> trips;
+    private Collection<ITrip> trips;
 
-    @NotNull
-    @OneToOne
-    private Preferences preferences;
+    @OneToOne(optional = false)
+    private IPreferences preferences;
 
     public Rider() {}
 
@@ -74,66 +73,66 @@ public class Rider implements IRider {
 
     @Override
     public IPreferences getPreferences() {
-        return null;
+        return preferences;
     }
 
     @Override
     public void setPreferences(IPreferences preferences) {
-
+        this.preferences = preferences;
     }
 
     @Override
     public Collection<ITrip> getTrips() {
-        return null;
+        return trips;
     }
 
     @Override
     public void setTrips(Collection<ITrip> trips) {
-
+        this.trips = trips;
     }
 
     @Override
     public void addTrip(ITrip trip) {
-
+        trips.add(trip);
     }
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setId(Long id) {
-
+        this.id = id;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
     public String getTel() {
-        return null;
+        return tel;
     }
 
     @Override
     public void setTel(String tel) {
-
+        this.tel = tel;
     }
 
     @Override
     public Double getAvgRating() {
-        return null;
+        return avgRating;
     }
 
     @Override
     public void setAvgRating(Double avgRating) {
-
+        this.avgRating = avgRating;
     }
 }

@@ -24,124 +24,128 @@ public class Trip implements ITrip {
     @Enumerated(EnumType.STRING)
     private TripState state;
 
-    @NotNull
-    @ManyToOne
-    private Location pickup;
+    @ManyToOne(optional = false)
+    private ILocation pickup;
 
-    @NotNull
-    @ManyToOne
-    private Location destination;
+    @ManyToOne(optional = false)
+    private ILocation destination;
 
-    @ManyToMany
-    private List<Location> stops;
+    @ManyToMany(targetEntity = Location.class)
+    private Collection<ILocation> stops;
 
     @ManyToOne
-    private Rider rider;
+    private IRider rider;
+
+    @OneToOne(mappedBy = "trip")
+    private ITripInfo tripInfo;
+
+    @OneToOne(mappedBy = "trip")
+    private IMatch match;
 
     public Trip() {}
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setId(Long id) {
-
+        this.id = id;
     }
 
     @Override
     public Date getCreated() {
-        return null;
+        return created;
     }
 
     @Override
     public void setCreated(Date created) {
-
+        this.created = created;
     }
 
     @Override
     public Date getUpdated() {
-        return null;
+        return updated;
     }
 
     @Override
     public void setUpdated(Date updated) {
-
+        this.updated = updated;
     }
 
     @Override
     public TripState getState() {
-        return null;
+        return state;
     }
 
     @Override
     public void setState(TripState state) {
-
+        this.state = state;
     }
 
     @Override
     public ILocation getPickup() {
-        return null;
+        return pickup;
     }
 
     @Override
     public void setPickup(ILocation pickup) {
-
+        this.pickup = pickup;
     }
 
     @Override
     public ILocation getDestination() {
-        return null;
+        return destination;
     }
 
     @Override
     public void setDestination(ILocation destination) {
-
+        this.destination = destination;
     }
 
     @Override
     public Collection<ILocation> getStops() {
-        return null;
+        return stops;
     }
 
     @Override
     public void setStops(Collection<ILocation> stops) {
-
+        this.stops = stops;
     }
 
     @Override
     public void addStop(ILocation stop) {
-
-    }
-
-    @Override
-    public ITripInfo getTripInfo() {
-        return null;
-    }
-
-    @Override
-    public void setTripInfo(ITripInfo tripInfo) {
-
-    }
-
-    @Override
-    public IMatch getMatch() {
-        return null;
-    }
-
-    @Override
-    public void setMatch(IMatch match) {
-
+        stops.add(stop);
     }
 
     @Override
     public IRider getRider() {
-        return null;
+        return rider;
     }
 
     @Override
     public void setRider(IRider rider) {
+        this.rider = rider;
+    }
 
+    @Override
+    public ITripInfo getTripInfo() {
+        return tripInfo;
+    }
+
+    @Override
+    public void setTripInfo(ITripInfo tripInfo) {
+        this.tripInfo = tripInfo;
+    }
+
+    @Override
+    public IMatch getMatch() {
+        return match;
+    }
+
+    @Override
+    public void setMatch(IMatch match) {
+        this.match = match;
     }
 }

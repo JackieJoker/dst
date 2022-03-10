@@ -22,31 +22,31 @@ public class Location implements ILocation {
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 
     @Override
     public void setId(Long id) {
-
+        this.id = id;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
     public Long getLocationId() {
-        return null;
+        return locationId;
     }
 
     @Override
     public void setLocationId(Long locationId) {
-
+        this.locationId = locationId;
     }
 }
