@@ -3,6 +3,7 @@ package dst.ass1.jpa.model.impl;
 import dst.ass1.jpa.model.*;
 
 import javax.persistence.*;
+import javax.print.attribute.standard.Destination;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Date;
@@ -24,22 +25,22 @@ public class Trip implements ITrip {
     @Enumerated(EnumType.STRING)
     private TripState state;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, targetEntity = Location.class)
     private ILocation pickup;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, targetEntity = Location.class)
     private ILocation destination;
 
     @ManyToMany(targetEntity = Location.class)
     private Collection<ILocation> stops;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Rider.class)
     private IRider rider;
 
-    @OneToOne(mappedBy = "trip")
+    @OneToOne(mappedBy = "trip", targetEntity = TripInfo.class)
     private ITripInfo tripInfo;
 
-    @OneToOne(mappedBy = "trip")
+    @OneToOne(mappedBy = "trip", targetEntity = Match.class)
     private IMatch match;
 
     public Trip() {}

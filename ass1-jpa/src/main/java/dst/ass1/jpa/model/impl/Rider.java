@@ -23,10 +23,10 @@ public class Rider implements IRider {
 
     private Double avgRating;
 
-    @OneToMany(mappedBy = "rider")
+    @OneToMany(mappedBy = "rider", targetEntity = Trip.class)
     private Collection<ITrip> trips;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, targetEntity = Preferences.class)
     private IPreferences preferences;
 
     public Rider() {}

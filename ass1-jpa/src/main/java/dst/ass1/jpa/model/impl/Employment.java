@@ -2,19 +2,18 @@ package dst.ass1.jpa.model.impl;
 
 import dst.ass1.jpa.model.IEmployment;
 import dst.ass1.jpa.model.IEmploymentKey;
+import org.hibernate.annotations.Target;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Employment implements IEmployment {
 
     @EmbeddedId
-    private EmploymentKey id;
-    //TODO: change into IEmploymentKey
+    @Target(EmploymentKey.class)
+    private IEmploymentKey id;
+
     @Temporal(value = TemporalType.DATE)
     private Date since;
 

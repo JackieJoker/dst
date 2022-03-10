@@ -26,7 +26,7 @@ public class TripInfo implements ITripInfo {
 
     private Integer riderRating;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, targetEntity = Trip.class)
     private ITrip trip;
 
     public TripInfo() {}

@@ -30,7 +30,7 @@ public class Organization implements IOrganization {
     @ManyToMany(mappedBy = "parts", targetEntity = Organization.class)
     private Collection<IOrganization> partOf;
 
-    @OneToMany(mappedBy = "id.organization")
+    @OneToMany(mappedBy = "id.organization", targetEntity = Employment.class)
     private Collection<IEmployment> employments;
 
     public Organization() {}
