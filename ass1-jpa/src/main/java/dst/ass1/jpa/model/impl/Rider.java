@@ -29,6 +29,8 @@ public class Rider implements IRider {
     @OneToOne(optional = false, targetEntity = Preferences.class)
     private IPreferences preferences;
 
+
+
     public Rider() {}
 
     @Override
