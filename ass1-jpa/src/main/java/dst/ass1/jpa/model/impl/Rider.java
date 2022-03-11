@@ -5,7 +5,6 @@ import dst.ass1.jpa.model.IRider;
 import dst.ass1.jpa.model.ITrip;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Table(
@@ -13,27 +12,15 @@ import java.util.Collection;
         @UniqueConstraint(columnNames = {"accountNo", "bankCode"})
 )
 @Entity
-public class Rider implements IRider {
-
-    @Id()
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String name;
-
-    @NotNull
-    private String tel;
-
-    private Double avgRating;
+public class Rider extends PlatformUser implements IRider {
 
     @OneToMany(mappedBy = "rider", targetEntity = Trip.class)
     private Collection<ITrip> trips;
 
-    @OneToOne(optional = false, targetEntity = Preferences.class)
+    @OneToOne(optional = false, targetEntity = Preferences.class, cascade = CascadeType.REMOVE)
     private IPreferences preferences;
 
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(length = 20)

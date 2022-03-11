@@ -3,44 +3,30 @@ package dst.ass1.jpa.model.impl;
 import dst.ass1.jpa.model.*;
 
 import javax.persistence.*;
-import javax.print.attribute.standard.Destination;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Trip implements ITrip {
 
-    @Id()
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(value = TemporalType.DATE)
     private Date created;
 
-    @Temporal(value = TemporalType.DATE)
     private Date updated;
 
-    @Enumerated(EnumType.STRING)
     private TripState state;
 
-    @ManyToOne(optional = false, targetEntity = Location.class)
     private ILocation pickup;
 
-    @ManyToOne(optional = false, targetEntity = Location.class)
     private ILocation destination;
 
-    @ManyToMany(targetEntity = Location.class)
     private Collection<ILocation> stops;
 
-    @ManyToOne(targetEntity = Rider.class)
     private IRider rider;
 
-    @OneToOne(mappedBy = "trip", targetEntity = TripInfo.class)
     private ITripInfo tripInfo;
 
-    @OneToOne(mappedBy = "trip", targetEntity = Match.class)
     private IMatch match;
 
     public Trip() {}

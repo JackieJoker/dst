@@ -28,7 +28,7 @@ public class Employment implements IEmployment {
 
     @Override
     public void setId(IEmploymentKey id) {
-//        this.id = id;
+        this.id = id;
     }
 
     @Override

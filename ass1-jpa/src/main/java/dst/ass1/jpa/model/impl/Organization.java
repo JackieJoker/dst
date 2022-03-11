@@ -6,7 +6,6 @@ import dst.ass1.jpa.model.IVehicle;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 public class Organization implements IOrganization {
