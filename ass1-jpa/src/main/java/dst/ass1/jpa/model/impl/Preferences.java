@@ -3,7 +3,10 @@ package dst.ass1.jpa.model.impl;
 import dst.ass1.jpa.model.IPreferences;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Map;
+
+import static org.hibernate.criterion.Projections.id;
 
 @Entity
 public class Preferences implements IPreferences {
@@ -40,6 +43,9 @@ public class Preferences implements IPreferences {
 
     @Override
     public void putData(String key, String value) {
+        if (data == null) {
+            data = new HashMap<>();
+        }
         data.put(key, value);
     }
 }

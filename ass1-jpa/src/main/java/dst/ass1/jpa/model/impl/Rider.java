@@ -5,6 +5,7 @@ import dst.ass1.jpa.model.IRider;
 import dst.ass1.jpa.model.ITrip;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Table(
@@ -12,6 +13,16 @@ import java.util.Collection;
         @UniqueConstraint(columnNames = {"accountNo", "bankCode"})
 )
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "riderByEmail",
+                query = "SELECT r FROM Rider r WHERE r.email = :email"
+        ),
+        @NamedQuery(
+                name = "sumDistanceOfRiderWithMostRecentTrip",
+                query = "SELECT SUM(i.distance) FROM Rider r JOIN r.trips t JOIN t.tripInfo i WHERE t.state = 'COMPLETED' and r.id = (SELECT MIN(r2.id) FROM Rider r2 JOIN r2.trips t2 JOIN t2.tripInfo i2 WHERE i2.completed = (SELECT MAX(i3.completed) FROM Rider r3 JOIN r3.trips t3 JOIN t3.tripInfo i3))"
+        ),
+})
 public class Rider extends PlatformUser implements IRider {
 
     @OneToMany(mappedBy = "rider", targetEntity = Trip.class)
@@ -55,47 +66,10 @@ public class Rider extends PlatformUser implements IRider {
 
     @Override
     public void addTrip(ITrip trip) {
+        if (trips == null) {
+            trips = new ArrayList<>();
+        }
         trips.add(trip);
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getTel() {
-        return tel;
-    }
-
-    @Override
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    @Override
-    public Double getAvgRating() {
-        return avgRating;
-    }
-
-    @Override
-    public void setAvgRating(Double avgRating) {
-        this.avgRating = avgRating;
     }
 
     @Override

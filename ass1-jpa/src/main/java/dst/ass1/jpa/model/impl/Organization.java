@@ -5,6 +5,7 @@ import dst.ass1.jpa.model.IOrganization;
 import dst.ass1.jpa.model.IVehicle;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -66,6 +67,9 @@ public class Organization implements IOrganization {
 
     @Override
     public void addVehicle(IVehicle vehicle) {
+        if(vehicles == null) {
+            vehicles = new ArrayList<>();
+        }
         vehicles.add(vehicle);
     }
 
@@ -81,6 +85,9 @@ public class Organization implements IOrganization {
 
     @Override
     public void addPart(IOrganization part) {
+        if(parts == null) {
+            parts = new ArrayList<>();
+        }
         parts.add(part);
     }
 
@@ -96,6 +103,9 @@ public class Organization implements IOrganization {
 
     @Override
     public void addPartOf(IOrganization partOf) {
+        if(this.partOf == null) {
+            this.partOf = new ArrayList<>();
+        }
         this.partOf.add(partOf);
     }
 
@@ -111,6 +121,9 @@ public class Organization implements IOrganization {
 
     @Override
     public void addEmployment(IEmployment employment) {
+        if(employments == null) {
+            employments = new ArrayList<>();
+        }
         employments.add(employment);
     }
 }

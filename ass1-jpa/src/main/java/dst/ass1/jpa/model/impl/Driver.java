@@ -5,9 +5,14 @@ import dst.ass1.jpa.model.IEmployment;
 import dst.ass1.jpa.model.IVehicle;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
+@NamedQuery(
+        name = "activeInMultipleOrganizationsDrivers",
+        query = "SELECT d FROM Driver d JOIN d.employments e WHERE e.active = TRUE and DATEDIFF(MONTH, e.since, CURRENT_DATE) >= 1 GROUP BY d.id HAVING count(e) > :organizations"
+)
 public class Driver extends PlatformUser implements IDriver {
 
     @ManyToOne(targetEntity = Vehicle.class, optional = false)
@@ -40,6 +45,9 @@ public class Driver extends PlatformUser implements IDriver {
 
     @Override
     public void addEmployment(IEmployment employment) {
+        if(employments == null) {
+            employments = new ArrayList<>();
+        }
         employments.add(employment);
     }
 }
