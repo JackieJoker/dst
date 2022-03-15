@@ -14,6 +14,11 @@ public class Money implements IMoney {
 
     public Money() {}
 
+    public Money(String currency, BigDecimal currencyValue) {
+        this.currency = currency;
+        this.currencyValue = currencyValue;
+    }
+
     @Override
     public String getCurrency() {
         return currency;

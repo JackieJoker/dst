@@ -30,7 +30,8 @@ public class Trip implements ITrip {
 
     private IMatch match;
 
-    public Trip() {}
+    public Trip() {
+    }
 
     @Override
     public Long getId() {
@@ -104,7 +105,7 @@ public class Trip implements ITrip {
 
     @Override
     public void addStop(ILocation stop) {
-        if(stops == null) {
+        if (stops == null) {
             stops = new ArrayList<>();
         }
         stops.add(stop);
