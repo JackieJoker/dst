@@ -1,5 +1,6 @@
 package dst.ass1.jpa.model.impl;
 
+import dst.ass1.jpa.listener.TripListener;
 import dst.ass1.jpa.model.*;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+@EntityListeners(TripListener.class)
 @Entity
 public class Trip implements ITrip {
 

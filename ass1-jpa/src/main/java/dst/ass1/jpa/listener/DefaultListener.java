@@ -1,44 +1,92 @@
 package dst.ass1.jpa.listener;
 
 
+import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class DefaultListener {
 
-    // TODO
+    private static int loads;
+    private static int updates;
+    private static int removes;
+    private static int persists;
+    //total time to persist
+    private static long total;
+    //average time to persist
+    private static double average;
+    private LocalDateTime start;
+    private final ReentrantLock lock = new ReentrantLock();
+
+    @PostLoad
+    private synchronized static void load(Object entity){
+        loads ++;
+    }
+
+    @PostUpdate
+    private synchronized static void update(Object entity){
+        updates ++;
+    }
+
+    @PostRemove
+    private synchronized static void remove(Object entity){
+        removes ++;
+    }
+
+    @PrePersist
+    private void prePersist(Object entity){
+        lock.lock();
+        start = LocalDateTime.now();
+    }
+
+    @PostPersist
+    private void postPersist(Object entity){
+        try {
+            Duration persistTime = Duration.between(start, LocalDateTime.now());
+            persists++;
+            total = total + persistTime.getSeconds();
+            average = (double) total / persists;
+            start = null;
+        }
+        finally {
+            lock.unlock();
+        }
+    }
 
     public static int getLoadOperations() {
-        // TODO
-        return -1;
+        return loads;
     }
 
     public static int getUpdateOperations() {
-        // TODO
-        return -1;
+        return updates;
     }
 
     public static int getRemoveOperations() {
-        // TODO
-        return -1;
+        return removes;
     }
 
     public static int getPersistOperations() {
-        // TODO
-        return -1;
+        return persists;
     }
 
     public static long getOverallTimeToPersist() {
-        // TODO
-        return -1;
+        return total;
     }
 
     public static double getAverageTimeToPersist() {
-        // TODO
-        return -1;
+        return average;
     }
 
     /**
      * Clears the internal data structures that are used for storing the operations.
      */
     public static void clear() {
-        // TODO
+        loads = 0;
+        updates = 0;
+        removes = 0;
+        persists = 0;
+        total = 0;
+        average = 0;
     }
 }
