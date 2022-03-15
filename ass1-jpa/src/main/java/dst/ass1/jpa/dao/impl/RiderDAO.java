@@ -62,11 +62,7 @@ public class RiderDAO extends AbstractDAO<IRider> implements IRiderDAO {
                 ).groupBy(root,infos.get("total").get("currency"));
 
         TypedQuery<RecentSpending> query = entityManager.createQuery(cr);
-        Map<IRider, Map<String, IMoney>> results =
-                //streams for efficiency purposes
-                query.getResultStream()
-                        .collect(SpendingCollector.toMapOfMaps());
-        System.out.println(results);
-        return results;
+        return query.getResultStream()
+                .collect(SpendingCollector.toMapOfMaps());
     }
 }
