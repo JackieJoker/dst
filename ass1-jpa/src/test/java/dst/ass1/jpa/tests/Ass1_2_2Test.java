@@ -4,6 +4,7 @@ import dst.ass1.jpa.dao.IDAOFactory;
 import dst.ass1.jpa.dao.IDriverDAO;
 import dst.ass1.jpa.dao.ILocationDAO;
 import dst.ass1.jpa.dao.impl.DAOFactory;
+import dst.ass1.jpa.interceptor.SQLInterceptor;
 import dst.ass1.jpa.model.*;
 import dst.ass1.jpa.util.Constants;
 import org.junit.Before;
@@ -39,11 +40,13 @@ public class Ass1_2_2Test extends Ass1_TestBase {
     @Test
     public void testReachedLocationsExists() {
         em.createNamedQuery(Constants.Q_REACHED_LOCATIONS);
+        System.out.println(SQLInterceptor.getSelectCount());
     }
 
     @Test
     public void testReachedLocationsQuery() {
         Collection<Long> ids = locationDAO.findReachedLocationIds();
+        System.out.println(SQLInterceptor.getSelectCount());
         assertThat(ids.size(), is(5));
         assertThat(ids, hasItems(LOCATION_1_ID, LOCATION_2_ID, LOCATION_3_ID, LOCATION_4_ID, LOCATION_5_ID));
     }
@@ -118,6 +121,8 @@ public class Ass1_2_2Test extends Ass1_TestBase {
 
         Collection<Long> ids = locationDAO.findReachedLocationIds();
 
+        System.out.println(SQLInterceptor.getSelectCount());
+
         assertThat(ids, hasItems(LOCATION_1_ID, LOCATION_2_ID, LOCATION_3_ID, LOCATION_4_ID, LOCATION_5_ID, ADD_REACHED_1, ADD_REACHED_2));
     }
 
@@ -125,6 +130,7 @@ public class Ass1_2_2Test extends Ass1_TestBase {
     public void testReachedLocationsQuery_onEmptyDatabase() {
         db.truncateTables();
         Collection<Long> ids = locationDAO.findReachedLocationIds();
+        System.out.println(SQLInterceptor.getSelectCount());
         assertTrue(ids.isEmpty());
     }
 

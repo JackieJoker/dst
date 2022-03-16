@@ -1,10 +1,9 @@
 package dst.ass1.jpa.listener;
-
-
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DefaultListener {
 
@@ -12,46 +11,38 @@ public class DefaultListener {
     private static int updates;
     private static int removes;
     private static int persists;
-    //total time to persist
+    //total time to persist (ms)
     private static long total;
-    //average time to persist
+    //average time to persist (ms)
     private static double average;
-    private LocalDateTime start;
-    private final ReentrantLock lock = new ReentrantLock();
+    private static Map<Integer,LocalDateTime> startTimes = new HashMap<>();
 
     @PostLoad
-    private synchronized static void load(Object entity){
-        loads ++;
+    private synchronized static void load(Object entity) {
+        loads++;
     }
 
     @PostUpdate
-    private synchronized static void update(Object entity){
-        updates ++;
+    private synchronized static void update(Object entity) {
+        updates++;
     }
 
     @PostRemove
-    private synchronized static void remove(Object entity){
-        removes ++;
+    private synchronized static void remove(Object entity) {
+        removes++;
     }
 
     @PrePersist
-    private void prePersist(Object entity){
-        lock.lock();
-        start = LocalDateTime.now();
+    private synchronized static void prePersist(Object entity) {
+        startTimes.put(entity.hashCode(), LocalDateTime.now());
     }
 
     @PostPersist
-    private void postPersist(Object entity){
-        try {
-            Duration persistTime = Duration.between(start, LocalDateTime.now());
-            persists++;
-            total = total + persistTime.getSeconds();
-            average = (double) total / persists;
-            start = null;
-        }
-        finally {
-            lock.unlock();
-        }
+    private synchronized static void postPersist(Object entity) {
+        Duration persistTime = Duration.between(startTimes.remove(entity.hashCode()), LocalDateTime.now());
+        persists++;
+        total = total + persistTime.toMillis();
+        average = (double) total / persists;
     }
 
     public static int getLoadOperations() {
