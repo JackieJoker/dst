@@ -32,6 +32,7 @@ public class Ass1_4_2bTest {
     public void findIdsByType_withNonExistingType_returnsNoLocationIds() throws Exception {
         List<Long> locationIds = mongo.getDocumentQuery().findIdsByNameAndRadius("McD", 16.367873, 48.198763, 5);
         assertNotNull(locationIds);
+        System.out.println(locationIds);
         assertTrue(locationIds.isEmpty());
 
         locationIds = mongo.getDocumentQuery().findIdsByNameAndRadius("NONEXISTING", 16.367873, 48.198763, 2000);
