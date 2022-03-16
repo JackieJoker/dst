@@ -2,21 +2,21 @@ package dst.ass1.jpa.listener;
 
 import dst.ass1.jpa.model.impl.Trip;
 
-import javax.persistence.PostPersist;
-import javax.persistence.PostUpdate;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.time.Instant;
 import java.util.Date;
 
 public class TripListener {
 
-    @PostPersist
+    @PrePersist
     private void persisted(Trip trip){
         Date now = Date.from(Instant.now());
         trip.setCreated(now);
         trip.setUpdated(now);
     }
 
-    @PostUpdate
+    @PreUpdate
     private void updated(Trip trip){
         Date now = Date.from(Instant.now());
         trip.setUpdated(now);
