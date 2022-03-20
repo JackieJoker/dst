@@ -6,8 +6,6 @@ import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hibernate.criterion.Projections.id;
-
 @Entity
 public class Preferences implements IPreferences {
 

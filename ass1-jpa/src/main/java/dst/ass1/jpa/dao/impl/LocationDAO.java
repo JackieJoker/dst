@@ -19,12 +19,12 @@ public class LocationDAO extends AbstractDAO<ILocation> implements ILocationDAO 
         try{
             locations.addAll(entityManager.createNamedQuery("reachedLocations", Long.class).getResultList());
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         try{
             locations.addAll(entityManager.createNamedQuery("reachedLocations2", Long.class).getResultList());
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return locations;
     }
