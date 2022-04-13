@@ -1,6 +1,6 @@
 package dst.ass2.aop.util;
 
-import static org.apache.commons.io.filefilter.FileFileFilter.FILE;
+import static org.apache.commons.io.filefilter.FileFileFilter.INSTANCE;
 import static org.apache.commons.io.filefilter.FileFilterUtils.and;
 import static org.apache.commons.io.filefilter.FileFilterUtils.or;
 import static org.apache.commons.io.filefilter.FileFilterUtils.prefixFileFilter;
@@ -105,7 +105,7 @@ public final class PluginUtils {
      * Deletes all plugin JARs copied to the plugin directory.
      */
     public static void cleanPluginDirectory() {
-        FileFilter filter = and(FILE,
+        FileFilter filter = and(INSTANCE,
                 or(prefixFileFilter("_"), prefixFileFilter("tmp_")));
         System.gc();
 
