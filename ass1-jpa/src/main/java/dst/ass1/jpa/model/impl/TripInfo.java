@@ -15,7 +15,7 @@ public class TripInfo implements ITripInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(value = TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date completed;
 
     private Double distance;
