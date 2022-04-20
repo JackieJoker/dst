@@ -25,5 +25,11 @@ public class GrpcServerRunner implements IGrpcServerRunner {
         Server server = ServerBuilder.forPort(port).addService(new AuthService(authenticationService)).build();
         server.start();
         System.out.println("Server started, listening on port:" + port);
+        // Uncomment this for manual testing!
+//        try {
+//            server.awaitTermination();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }
