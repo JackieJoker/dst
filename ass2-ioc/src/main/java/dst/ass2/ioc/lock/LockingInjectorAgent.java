@@ -5,7 +5,7 @@ import java.lang.instrument.Instrumentation;
 public class LockingInjectorAgent {
 
     public static void premain(String args, Instrumentation inst) {
-        // TODO
+        LockingInjector lockingInjector = new LockingInjector();
+        inst.addTransformer(lockingInjector);
     }
-
 }
