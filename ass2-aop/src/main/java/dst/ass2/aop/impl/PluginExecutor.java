@@ -21,9 +21,9 @@ import dst.ass2.aop.ObjectCreationException;
 public class PluginExecutor implements IPluginExecutor {
     private final Map<File, WatchKey> fileKey;
     private final Map<WatchKey, File> keyFile;
-    WatchService watchService;
-    Thread monitorThread;
-    ThreadPoolExecutor executor;
+    private WatchService watchService;
+    private final Thread monitorThread;
+    private final ThreadPoolExecutor executor;
 
     public PluginExecutor() {
         fileKey = new HashMap<>();
