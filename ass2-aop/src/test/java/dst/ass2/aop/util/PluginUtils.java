@@ -199,8 +199,8 @@ public final class PluginUtils {
      *
      * @param advised the proxy with the applied aspect
      * @return a string representation of this pointcut expression
-     * @see #getPointcutExpression(org.springframework.aop.framework.Advised)
-     * @see #getPointcutAdvisor(org.springframework.aop.framework.Advised)
+     * @see #getPointcutExpression(Advised)
+     * @see #getPointcutAdvisor(Advised)
      */
     public static String getBestExpression(Advised advised) {
         PointcutExpressionImpl pointcutExpression = getPointcutExpression(advised);
