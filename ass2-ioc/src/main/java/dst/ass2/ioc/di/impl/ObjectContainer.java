@@ -25,7 +25,7 @@ public class ObjectContainer implements IObjectContainer {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T getObject(Class<T> type) throws InjectionException {
+    public synchronized <T> T getObject(Class<T> type) throws InjectionException {
         T object;
         if (!type.isAnnotationPresent(Component.class))
             throw new InvalidDeclarationException(type.getName() + " can't be instantiated." +
@@ -40,7 +40,10 @@ public class ObjectContainer implements IObjectContainer {
         }
 
         injectFields(type, object);
-        injectProperties(type, object);
+        // .putAll() better performances than .clone()
+        Properties propertiesCopy = new Properties();
+        propertiesCopy.putAll(properties);
+        injectProperties(type, object, propertiesCopy);
         initializeMethods(type, object);
         return object;
     }
@@ -77,14 +80,14 @@ public class ObjectContainer implements IObjectContainer {
         }
     }
 
-    private <T> void injectProperties(Class<T> type, T object) {
+    private <T> void injectProperties(Class<T> type, T object, Properties propertiesCopy) {
         List<Field> fields = getAllFields(new LinkedList<>(), type);
         for (Field field : fields) {
             if (field.isAnnotationPresent(Property.class)) {
                 String key = field.getAnnotation(Property.class).value();
-                if (!properties.containsKey(key))
+                if (!propertiesCopy.containsKey(key))
                     throw new ObjectCreationException("Property: " + key + " not available in the container.");
-                String value = properties.getProperty(key);
+                String value = propertiesCopy.getProperty(key);
                 Class<?> fieldType = field.getType();
                 Object convertedValue;
                 if (fieldType.equals(String.class)) {

@@ -10,6 +10,10 @@ import dst.ass2.service.auth.ICachingAuthenticationService;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
@@ -19,12 +23,13 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
 @ManagedBean
+@ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class CachingAuthenticationService implements ICachingAuthenticationService {
     @PersistenceContext
     private EntityManager em;
@@ -32,9 +37,9 @@ public class CachingAuthenticationService implements ICachingAuthenticationServi
     private IDAOFactory daoFactory;
     // <Email, Password>
     // Password is stored as sha1 hash sums, NOT clear as plain text
-    private HashMap<String, byte[]> emailPassword;
+    private ConcurrentHashMap<String, byte[]> emailPassword;
     // <Token, Email>
-    private HashMap<String, String> tokenEmail;
+    private ConcurrentHashMap<String, String> tokenEmail;
 
     private static byte[] toSHA1(String password) {
         byte[] bytePassword = password.getBytes(StandardCharsets.UTF_8);
@@ -50,8 +55,8 @@ public class CachingAuthenticationService implements ICachingAuthenticationServi
     @PostConstruct
     @Override
     public void loadData() {
-        emailPassword = new HashMap<>();
-        tokenEmail = new HashMap<>();
+        emailPassword = new ConcurrentHashMap<>();
+        tokenEmail = new ConcurrentHashMap<>();
 
         IRiderDAO riderDAO = daoFactory.createRiderDAO();
         List<IRider> users = riderDAO.findAll();
@@ -59,6 +64,7 @@ public class CachingAuthenticationService implements ICachingAuthenticationServi
     }
 
     @Override
+    @Lock(LockType.READ)
     public String authenticate(String email, String password) throws NoSuchUserException, AuthenticationException {
         byte[] hashedPassword = toSHA1(password);
         if (!emailPassword.containsKey(email)) {
@@ -71,17 +77,19 @@ public class CachingAuthenticationService implements ICachingAuthenticationServi
         if (Arrays.equals(emailPassword.get(email), hashedPassword)) {
             UUID token = UUID.randomUUID();
             tokenEmail.put(token.toString(), email);
+
             return token.toString();
         } else throw new AuthenticationException();
     }
 
     @Override
     @Transactional
+    @Lock(LockType.WRITE)
     public void changePassword(String email, String newPassword) throws NoSuchUserException {
         byte[] hashedPassword = toSHA1(newPassword);
         IRiderDAO riderDAO = daoFactory.createRiderDAO();
         IRider userQuery = riderDAO.findByEmail(email);
-        if(userQuery == null) throw new NoSuchUserException();
+        if (userQuery == null) throw new NoSuchUserException();
         Rider user = em.find(Rider.class, userQuery.getId());
         user.setPassword(hashedPassword);
         emailPassword.replace(email, hashedPassword);
@@ -99,7 +107,7 @@ public class CachingAuthenticationService implements ICachingAuthenticationServi
 
     @Override
     public boolean invalidate(String token) {
-        if(!tokenEmail.containsKey(token)) return false;
+        if (!tokenEmail.containsKey(token)) return false;
         tokenEmail.remove(token);
         return true;
     }

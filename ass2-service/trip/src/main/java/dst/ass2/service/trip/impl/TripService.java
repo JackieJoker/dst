@@ -10,6 +10,7 @@ import javax.annotation.ManagedBean;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.sql.Date;
@@ -142,10 +143,8 @@ public class TripService implements ITripService {
         }
 
         // Set the trip state to MATCHED
-        trip = em.find(Trip.class, tripId);
+        trip = em.find(Trip.class, tripId, LockModeType.PESSIMISTIC_WRITE);
         trip.setState(TripState.MATCHED);
-
-        //TODO: Jpa Locks
     }
 
     @Override
