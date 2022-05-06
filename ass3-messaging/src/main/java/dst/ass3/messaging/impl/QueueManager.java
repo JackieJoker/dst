@@ -29,10 +29,11 @@ public class QueueManager implements IQueueManager {
             channel.queueDeclare(Constants.QUEUE_AT_LINZ, true, false, false, null);
             channel.queueDeclare(Constants.QUEUE_AT_VIENNA, true, false, false, null);
             channel.queueDeclare(Constants.QUEUE_DE_BERLIN, true, false, false, null);
+            channel.exchangeDeclare("dst.work_queues", "topic");
+            channel.queueBind(Constants.QUEUE_AT_LINZ, "dst.work_queues", Region.AT_LINZ.name());
+            channel.queueBind(Constants.QUEUE_AT_VIENNA, "dst.work_queues", Region.AT_VIENNA.name());
+            channel.queueBind(Constants.QUEUE_DE_BERLIN, "dst.work_queues", Region.DE_BERLIN.name());
             channel.exchangeDeclare(Constants.TOPIC_EXCHANGE, "topic");
-            channel.queueBind(Constants.QUEUE_AT_LINZ, Constants.TOPIC_EXCHANGE, Region.AT_LINZ.name());
-            channel.queueBind(Constants.QUEUE_AT_VIENNA, Constants.TOPIC_EXCHANGE, Region.AT_VIENNA.name());
-            channel.queueBind(Constants.QUEUE_DE_BERLIN, Constants.TOPIC_EXCHANGE, Region.DE_BERLIN.name());
         } catch (IOException e) {
             System.out.println("An error occured while creating the queues.");
         }
@@ -44,6 +45,7 @@ public class QueueManager implements IQueueManager {
             channel.queueDelete(Constants.QUEUE_AT_LINZ);
             channel.queueDelete(Constants.QUEUE_AT_VIENNA);
             channel.queueDelete(Constants.QUEUE_DE_BERLIN);
+            channel.exchangeDelete("dst.work_queues");
             channel.exchangeDelete(Constants.TOPIC_EXCHANGE);
         } catch (IOException e) {
             System.out.println("An error occured while deleting the queues.");

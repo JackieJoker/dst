@@ -29,7 +29,7 @@ public class MessagingFactory implements IMessagingFactory {
 
     @Override
     public IWorkloadMonitor createWorkloadMonitor() {
-        return new WorkloadMonitor();
+        return new WorkloadMonitor(connectionFactory);
     }
 
     @Override

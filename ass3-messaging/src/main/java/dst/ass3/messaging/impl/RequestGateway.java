@@ -32,7 +32,7 @@ public class RequestGateway implements IRequestGateway {
         ObjectMapper mapper = new ObjectMapper();
         try {
             byte[] jsonBytes = mapper.writeValueAsBytes(request);
-            channel.basicPublish(Constants.TOPIC_EXCHANGE, region.name(), null, jsonBytes);
+            channel.basicPublish("dst.work_queues", region.name(), null, jsonBytes);
         } catch (JsonProcessingException e) {
             System.out.println("An error occurred in json processing the TripRequest object.");
         } catch (IOException e) {
