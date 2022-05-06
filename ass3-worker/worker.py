@@ -28,12 +28,12 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGTERM, signal_handler)
 
 credentials = pika.PlainCredentials(username='dst', password='dst')
-parameters = pika.ConnectionParameters(host='127.0.0.1', port=5672, virtual_host='/', credentials=credentials)
+parameters = pika.ConnectionParameters(host='rabbit', port=5672, virtual_host='/', credentials=credentials)
 connection = pika.BlockingConnection(parameters=parameters)
 channel = connection.channel()
 print("Worker connected to RabbitMQ")
 queue_name = 'dst.' + region
-r = redis.Redis()
+r = redis.Redis(host='redis')
 r.ping()
 print("Worker connected to Redis")
 secs = 0
@@ -98,7 +98,7 @@ def callback(ch, method, properties, body):
 
 def send_response(worker_response):
     json_response = json.dumps(worker_response)
-    print("Created Worker response. Ready to sent.")
+    print("Created Worker response. Ready to send.")
     print("Worker response: " + json_response)
     routing_key = 'requests.' + region
     channel.basic_publish(exchange='dst.workers', routing_key=routing_key, body=json_response.encode('utf8'))
