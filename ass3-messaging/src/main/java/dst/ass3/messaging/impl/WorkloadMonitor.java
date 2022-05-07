@@ -74,6 +74,10 @@ public class WorkloadMonitor implements IWorkloadMonitor {
         return workerCount;
     }
 
+    /**
+     * Get the processing time in <strong>milliseconds</strong>.
+     * @return A map containing the processing time for each Region
+     */
     @Override
     public Map<Region, Double> getAverageProcessingTime() {
         Map<Region, Double> averageLastTen = new HashMap<>();
@@ -82,7 +86,7 @@ public class WorkloadMonitor implements IWorkloadMonitor {
             // Get the last 10 elements if there are more than 10,
             // otherwise get all the elements
             List<Long> lastTen = all.subList(Math.max(all.size() - 10, 0), all.size());
-            Double average = lastTen.stream().mapToDouble(d -> d).average().orElse(0.0);
+            double average = lastTen.stream().mapToDouble(d -> d).average().orElse(0.0);
             averageLastTen.put(r, average);
         }
         System.out.println(averageLastTen);
