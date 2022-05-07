@@ -13,7 +13,7 @@ if len(sys.argv) < 1:
     print("Region argument is empty. Please provide a valid region when calling this script.")
     exit(0)
 region = sys.argv[1]
-if region != ('at_vienna' or 'at_linz' or 'de_berlin'):
+if region != 'at_vienna' and region != 'at_linz' and region != 'de_berlin':
     print("Region argument is invalid. Valid regions are: at_vienna, at_linz and de_berlin")
     exit(0)
 print("Started a new Python Worker for region " + region + ".")

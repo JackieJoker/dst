@@ -10,8 +10,7 @@ public class ElasticityFactory implements IElasticityFactory {
 
     @Override
     public IContainerService createContainerService() {
-        // TODO
-        return null;
+        return new ContainerService();
     }
 
     @Override
