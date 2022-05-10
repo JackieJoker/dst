@@ -10,7 +10,6 @@ public class EventProcessingFactory {
     }
 
     public static IEventSourceFunction createEventSourceFunction() {
-        // TODO
-        return null;
+        return new EventSourceFunction();
     }
 }
