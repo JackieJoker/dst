@@ -5,8 +5,7 @@ package dst.ass3.event;
  */
 public class EventProcessingFactory {
     public static IEventProcessingEnvironment createEventProcessingEnvironment() {
-        // TODO
-        return null;
+        return new EventProcessingEnvironment();
     }
 
     public static IEventSourceFunction createEventSourceFunction() {

@@ -35,7 +35,8 @@ public class EventSourceFunction extends AbstractRichFunction implements IEventS
             ITripEventInfo received = eventSubscriber.receive();
             if(received != null) {
                 sourceContext.collect(received);
-            }
+                //TODO: check if just returning is ok
+            } else return;
         }
     }
 
