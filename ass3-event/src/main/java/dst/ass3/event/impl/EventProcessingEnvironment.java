@@ -61,12 +61,7 @@ public class EventProcessingEnvironment implements IEventProcessingEnvironment {
         lifecycleEvent.addSink(lifecycleEventStreamSink);
 
         //TODO: when everything works, try to change with lambda
-        DataStream<LifecycleEvent> lifecycleById = lifecycleEvent.keyBy(new KeySelector<LifecycleEvent, Long>() {
-            @Override
-            public Long getKey(LifecycleEvent value) throws Exception {
-                return value.getTripId();
-            }
-        });
+        DataStream<LifecycleEvent> lifecycleById = lifecycleEvent.keyBy((KeySelector<LifecycleEvent, Long>) LifecycleEvent::getTripId);
 
         Pattern<LifecycleEvent, ?> createdAndMatched = getPattern(TripState.CREATED, TripState.MATCHED).within(matchingDurationTimeout);
         PatternStream<LifecycleEvent> patternStream = CEP.pattern(lifecycleById, createdAndMatched).inEventTime();
