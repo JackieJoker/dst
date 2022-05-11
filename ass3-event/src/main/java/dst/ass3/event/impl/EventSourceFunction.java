@@ -1,5 +1,8 @@
-package dst.ass3.event;
+package dst.ass3.event.impl;
 
+import dst.ass3.event.Constants;
+import dst.ass3.event.EventSubscriber;
+import dst.ass3.event.IEventSourceFunction;
 import dst.ass3.event.model.domain.ITripEventInfo;
 import org.apache.flink.api.common.functions.AbstractRichFunction;
 import org.apache.flink.configuration.Configuration;

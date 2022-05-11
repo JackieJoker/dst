@@ -1,4 +1,4 @@
-package dst.ass3.event;
+package dst.ass3.event.impl;
 
 import dst.ass3.event.model.events.LifecycleEvent;
 import org.apache.flink.api.common.eventtime.Watermark;
