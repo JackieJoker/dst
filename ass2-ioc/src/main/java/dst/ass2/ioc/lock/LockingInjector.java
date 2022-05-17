@@ -31,7 +31,7 @@ public class LockingInjector implements ClassFileTransformer {
             }
             CtMethod[] methods =  ctClass.getDeclaredMethods();
             for (CtMethod ctMethod: methods) {
-                if(ctMethod.hasAnnotation(Lock.class)) {
+                if (ctMethod.hasAnnotation(Lock.class)) {
                     Lock annotation = (Lock) ctMethod.getAnnotation(Lock.class);
                     String value = annotation.value();
                     LOGGER.info("Injecting the lock: " + value + " in the bytecode of the Class: " + dottedClassName);

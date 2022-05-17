@@ -57,8 +57,7 @@ public class TripService implements ITripService {
         pickup = locationDAO.findById(pickupId);
         if (pickup == null) throw new EntityNotFoundException("Pickup Location entity not found. Check the pickupId.");
         destination = locationDAO.findById(destinationId);
-        if (destination == null)
-            throw new EntityNotFoundException("Destination Location entity not found. Check the destinationId.");
+        if (destination == null) throw new EntityNotFoundException("Destination Location entity not found. Check the destinationId.");
         // execute only if no exception is thrown
         trip.setRider(rider);
         trip.setPickup(pickup);
