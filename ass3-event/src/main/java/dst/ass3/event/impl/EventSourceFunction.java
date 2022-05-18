@@ -11,10 +11,8 @@ import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
-//TODO: is it correct? I just copied what is done in RichSourceFunction
 public class EventSourceFunction extends AbstractRichFunction implements IEventSourceFunction, Serializable {
     private static final long serialVersionUID = 1L;
-    //TODO: maybe transient (?)
     private EventSubscriber eventSubscriber;
     private volatile boolean isRunning = true;
 
@@ -38,7 +36,6 @@ public class EventSourceFunction extends AbstractRichFunction implements IEventS
             ITripEventInfo received = eventSubscriber.receive();
             if(received != null) {
                 sourceContext.collect(received);
-                //TODO: check if just returning is ok
             } else return;
         }
     }

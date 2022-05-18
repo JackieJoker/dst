@@ -3,7 +3,6 @@ package dst.ass3.event.impl;
 import dst.ass3.event.EventProcessingFactory;
 import dst.ass3.event.IEventProcessingEnvironment;
 import dst.ass3.event.model.domain.ITripEventInfo;
-import dst.ass3.event.model.domain.Region;
 import dst.ass3.event.model.domain.TripState;
 import dst.ass3.event.model.events.*;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -18,13 +17,9 @@ import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;
-import org.apache.flink.streaming.api.functions.windowing.ProcessWindowFunction;
 import org.apache.flink.streaming.api.windowing.time.Time;
-import org.apache.flink.streaming.api.windowing.windows.GlobalWindow;
-import org.apache.flink.util.Collector;
 import org.apache.flink.util.OutputTag;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -59,6 +54,8 @@ public class EventProcessingEnvironment implements IEventProcessingEnvironment {
         emitRegionalAlerts(matchingTimeoutWarning, tripFailedWarning);
         DataStream<MatchingDuration> matchingDuration = durationAndWarning.f0;
         calculateAverageMatchingDuration(matchingDuration);
+
+        System.out.println(env.getExecutionPlan());
     }
 
     private void calculateAverageMatchingDuration(DataStream<MatchingDuration> matchingDuration) {

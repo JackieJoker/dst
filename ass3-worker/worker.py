@@ -1,5 +1,3 @@
-# TODO Now the project compiler is python. Later you need to set again Java
-#  Modify the Workload monitor test or create a new one to test this worker
 import sys
 import pika
 import json
